@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Groovy Export Consulting – Launch Your Export Business in 90 Days</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <style>
+    :root {
+      --emerald: #10b981;
+      --emerald-light: #34d399;
+      --emerald-dark: #059669;
+      --gold: #f59e0b;
+      --navy: #0a0f1e;
+      --navy-mid: #0f172a;
+      --navy-card: #141c2e;
+      --navy-border: #1e2d47;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--text-primary); }
+
+    h1, h2, h3, .syne { font-family: 'Syne', sans-serif; }
+
+    /* Noise texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.6;
+    }
+
+    /* Grid pattern background */
+    .grid-bg {
+      background-image: linear-gradient(rgba(16,185,129,0.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(16,185,129,0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    /* Glow effect */
+    .glow-green { box-shadow: 0 0 40px rgba(16,185,129,0.25), 0 0 80px rgba(16,185,129,0.1); }
+    .glow-text { text-shadow: 0 0 40px rgba(16,185,129,0.4); }
+    .text-emerald { color: var(--emerald); }
+    .text-emerald-light { color: var(--emerald-light); }
+    .bg-emerald { background-color: var(--emerald); }
+
+    /* Hero */
+    #hero {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+
+    .hero-orb-1 {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(16,185,129,0.18) 0%, transparent 70%);
+      top: -100px; right: -100px;
+    }
+
+    .hero-orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(245,158,11,0.1) 0%, transparent 70%);
+      bottom: -50px; left: -50px;
+    }
+
+    /* Export graphic */
+    .export-visual {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+    }
+
+    /* CTA button */
+    .btn-primary {
+      background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));
+      color: white;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      padding: 16px 36px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.12) 100%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(16,185,129,0.45);
+    }
+
+    .btn-primary:hover::after { opacity: 1; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text-primary);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      padding: 15px 32px;
+      border-radius: 4px;
+      border: 1px solid var(--navy-border);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .btn-outline:hover {
+      border-color: var(--emerald);
+      color: var(--emerald);
+      transform: translateY(-2px);
+    }
+
+    /* Section */
+    section { position: relative; z-index: 1; }
+
+    /* Cards */
+    .card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 8px;
+      transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      border-color: rgba(16,185,129,0.4);
+      box-shadow: 0 8px 40px rgba(16,185,129,0.12);
+      transform: translateY(-4px);
+    }
+
+    /* Pricing cards */
+    .pricing-card {
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card.featured {
+      border-color: var(--emerald);
+      box-shadow: 0 0 0 1px var(--emerald), 0 20px 60px rgba(16,185,129,0.2);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(16,185,129,0.15);
+    }
+
+    .pricing-card.featured:hover {
+      box-shadow: 0 0 0 1px var(--emerald), 0 24px 70px rgba(16,185,129,0.28);
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .pricing-card:hover::before, .pricing-card.featured::before { opacity: 1; }
+
+    /* Badge */
+    .badge {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      background: rgba(16,185,129,0.12);
+      color: var(--emerald-light);
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+
+    /* Divider line */
+    .section-line {
+      width: 48px; height: 3px;
+      background: linear-gradient(90deg, var(--emerald), transparent);
+      margin-bottom: 20px;
+    }
+
+    /* Problem bullets */
+    .pain-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 24px;
+      border-left: 2px solid transparent;
+      border-radius: 4px;
+      transition: all 0.3s;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .pain-item:hover {
+      border-left-color: #ef4444;
+      background: rgba(239,68,68,0.04);
+    }
+
+    /* FAQ Accordion */
+    .faq-item { border-bottom: 1px solid var(--navy-border); }
+
+    .faq-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+      padding: 20px 0;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: color 0.2s;
+    }
+
+    .faq-btn:hover { color: var(--emerald-light); }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 15px;
+    }
+
+    .faq-content.open {
+      max-height: 200px;
+      padding-bottom: 20px;
+    }
+
+    .faq-icon {
+      width: 24px; height: 24px;
+      border: 1px solid var(--navy-border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform 0.3s, border-color 0.3s;
+      font-size: 14px;
+    }
+
+    .faq-btn.active .faq-icon {
+      transform: rotate(45deg);
+      border-color: var(--emerald);
+      color: var(--emerald);
+    }
+
+    /* Testimonial carousel */
+    .testimonial-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+    }
+
+    .testimonial-track::-webkit-scrollbar { display: none; }
+
+    .testimonial-card {
+      min-width: 320px;
+      scroll-snap-align: start;
+      background: var(--navy-card);
+      border: 1px solid var(--navy-border);
+      border-radius: 10px;
+      padding: 28px;
+      flex-shrink: 0;
+      transition: border-color 0.3s;
+    }
+
+    .testimonial-card:hover { border-color: rgba(16,185,129,0.35); }
+
+    /* Sticky footer bar */
+    #sticky-bar {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(10,15,30,0.95);
+      backdrop-filter: blur(16px);
+      border-top: 1px solid var(--navy-border);
+      z-index: 100;
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      padding: 14px 24px;
+    }
+
+    #sticky-bar.visible { transform: translateY(0); }
+
+    /* Counter animation */
+    .stat-num { font-family: 'Syne', sans-serif; }
+
+    /* Checkmark list */
+    .check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      color: var(--text-secondary);
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 4px 0;
+    }
+
+    .check-list li::before {
+      content: '✓';
+      color: var(--emerald);
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* Parallax hero image wrapper */
+    #hero-image-wrap {
+      will-change: transform;
+    }
+
+    /* Scroll reveal classes */
+    .reveal { opacity: 0; transform: translateY(30px); }
+    .reveal-left { opacity: 0; transform: translateX(-30px); }
+    .reveal-right { opacity: 0; transform: translateX(30px); }
+
+    /* Number tag */
+    .num-tag {
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--emerald);
+      letter-spacing: 0.1em;
+    }
+
+    /* Gradient border utility */
+    .grad-border {
+      position: relative;
+    }
+    .grad-border::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, var(--emerald), transparent 60%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .export-visual { max-width: 100%; margin-top: 48px; }
+      .testimonial-card { min-width: 280px; }
+    }
+
+    /* Marquee for social proof */
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .marquee-inner {
+      display: flex;
+      gap: 48px;
+      animation: marquee 22s linear infinite;
+      white-space: nowrap;
+    }
+
+    .marquee-inner:hover { animation-play-state: paused; }
+  </style>
+</head>
+<body class="grid-bg">
+
+<!-- ──────────────────────────────────────────────
+     NAVIGATION
+────────────────────────────────────────────── -->
+<nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style="padding: 20px 0;">
+  <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-sm flex items-center justify-center" style="background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 14L8 2L14 14H2Z" fill="white" opacity="0.9"/></svg>
+      </div>
+      <span class="syne font-800 text-lg tracking-tight text-white">Groovy <span class="text-emerald">Export</span></span>
+    </div>
+    <div class="hidden md:flex items-center gap-8 text-sm font-medium" style="color: var(--text-secondary);">
+      <a href="#problem" class="hover:text-white transition-colors">Problem</a>
+      <a href="#solution" class="hover:text-white transition-colors">Solution</a>
+      <a href="#offer" class="hover:text-white transition-colors">Packages</a>
+      <a href="#proof" class="hover:text-white transition-colors">Proof</a>
+      <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+    </div>
+    <a href="#offer" class="btn-primary text-sm" style="padding: 10px 22px;">Get Free Audit</a>
+  </div>
+</nav>
+
+<!-- ──────────────────────────────────────────────
+     HERO
+────────────────────────────────────────────── -->
+<section id="hero" class="pt-24">
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="max-w-6xl mx-auto px-6 relative z-10">
+    <div class="flex flex-col lg:flex-row items-center gap-16 py-16 lg:py-0 min-h-screen">
+      <!-- Left -->
+      <div class="flex-1 reveal-left" id="hero-text">
+        <div class="badge mb-6">🇮🇳 For Indian SMEs — Export Launch System</div>
+        <h1 class="syne font-800 leading-tight mb-6" style="font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.1;">
+          Launch Your Export<br/>
+          Business in <span class="text-emerald glow-text">90 Days</span><br/>
+          <span style="color: var(--text-secondary); font-size: 0.85em;">Without Compliance Headaches</span>
+        </h1>
+        <p class="text-lg mb-8 leading-relaxed" style="color: var(--text-secondary); max-width: 520px; font-weight: 300;">
+          For Indian SMEs ready to ship globally — get your IEC, 50 vetted buyers, and your first shipment executed. Zero guesswork. Full execution.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mb-10">
+          <a href="#offer" class="btn-primary text-base">Get Started — Free Audit</a>
+          <a href="#solution" class="btn-outline text-base">See How It Works</a>
+        </div>
+
+        <!-- Mini stats -->
+        <div class="flex flex-wrap gap-8">
+          <div>
+            <div class="stat-num text-2xl font-700 text-white"><span class="counter" data-target="200">0</span>+</div>
+            <div class="text-xs" style="color: var(--text-secondary); letter-spacing: 0.06em;">CLIENTS SCALED</div>
+          </div>
+          <div style="width:1px; background: var(--navy-border);"></div>
+          <div>
+            <div class="stat-num text-2xl font-700 text-white">₹10Cr+</div>
+            <div class="text-xs" style="color: var(--text-secondary); letter-spacing: 0.06em;">EXPORTS ENABLED</div>
+          </div>
+          <div style="width:1px; background: var(--navy-border);"></div>
+          <div>
+            <div class="stat-num text-2xl font-700 text-white">90</div>
+            <div class="text-xs" style="color: var(--text-secondary); letter-spacing: 0.06em;">DAY GUARANTEE</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Export visual -->
+      <div class="flex-1 flex justify-center lg:justify-end reveal-right" id="hero-image-wrap">
+        <div class="export-visual">
+          <svg viewBox="0 0 520 460" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+            <!-- Background card -->
+            <rect x="20" y="20" width="480" height="420" rx="16" fill="#0f172a" stroke="#1e2d47"/>
+            <!-- World map dots -->
+            <g opacity="0.25">
+              <circle cx="80" cy="160" r="2" fill="#10b981"/>
+              <circle cx="120" cy="140" r="2" fill="#10b981"/>
+              <circle cx="160" cy="170" r="2" fill="#10b981"/>
+              <circle cx="200" cy="150" r="2" fill="#10b981"/>
+              <circle cx="240" cy="145" r="3" fill="#10b981"/>
+              <circle cx="280" cy="155" r="2" fill="#10b981"/>
+              <circle cx="320" cy="135" r="2" fill="#10b981"/>
+              <circle cx="360" cy="160" r="2" fill="#10b981"/>
+              <circle cx="400" cy="150" r="2" fill="#10b981"/>
+              <circle cx="440" cy="165" r="2" fill="#10b981"/>
+              <!-- Row 2 -->
+              <circle cx="100" cy="200" r="2" fill="#10b981"/>
+              <circle cx="145" cy="210" r="2" fill="#10b981"/>
+              <circle cx="190" cy="195" r="2" fill="#10b981"/>
+              <circle cx="235" cy="205" r="2" fill="#10b981"/>
+              <circle cx="280" cy="195" r="2" fill="#10b981"/>
+              <circle cx="325" cy="210" r="2" fill="#10b981"/>
+              <circle cx="370" cy="200" r="2" fill="#10b981"/>
+              <circle cx="415" cy="205" r="2" fill="#10b981"/>
+            </g>
+
+            <!-- India marker (highlighted) -->
+            <circle cx="320" cy="195" r="10" fill="rgba(16,185,129,0.2)" stroke="#10b981" stroke-width="1.5"/>
+            <circle cx="320" cy="195" r="4" fill="#10b981"/>
+            <circle cx="320" cy="195" r="18" fill="rgba(16,185,129,0.06)"/>
+
+            <!-- Connection lines from India to world -->
+            <line x1="320" y1="195" x2="120" y2="155" stroke="#10b981" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+            <line x1="320" y1="195" x2="420" y2="145" stroke="#10b981" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+            <line x1="320" y1="195" x2="80" y2="180" stroke="#f59e0b" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+            <line x1="320" y1="195" x2="450" y2="200" stroke="#10b981" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+            <line x1="320" y1="195" x2="200" y2="250" stroke="#10b981" stroke-width="1" stroke-dasharray="4 3" opacity="0.35"/>
+
+            <!-- Destination dots -->
+            <circle cx="120" cy="155" r="5" fill="rgba(245,158,11,0.3)" stroke="#f59e0b" stroke-width="1.5"/>
+            <circle cx="420" cy="145" r="5" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="1.5"/>
+            <circle cx="80" cy="180" r="4" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="1.5"/>
+            <circle cx="450" cy="200" r="4" fill="rgba(16,185,129,0.3)" stroke="#10b981" stroke-width="1.5"/>
+
+            <!-- Container graphic at bottom -->
+            <rect x="60" y="310" width="400" height="110" rx="8" fill="#141c2e" stroke="#1e2d47"/>
+
+            <!-- Container boxes -->
+            <rect x="75" y="325" width="70" height="60" rx="4" fill="#1e3a2f" stroke="rgba(16,185,129,0.3)"/>
+            <line x1="110" y1="325" x2="110" y2="385" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+            <text x="112" y="365" fill="#10b981" font-size="18" text-anchor="middle" font-family="monospace">📦</text>
+
+            <rect x="155" y="325" width="70" height="60" rx="4" fill="#1e3a2f" stroke="rgba(16,185,129,0.3)"/>
+            <text x="190" y="365" fill="#10b981" font-size="18" text-anchor="middle" font-family="monospace">📦</text>
+
+            <rect x="235" y="325" width="70" height="60" rx="4" fill="#1e3a2f" stroke="rgba(16,185,129,0.3)"/>
+            <text x="270" y="365" fill="#10b981" font-size="18" text-anchor="middle" font-family="monospace">📦</text>
+
+            <!-- Ship icon area -->
+            <rect x="315" y="320" width="130" height="70" rx="6" fill="rgba(16,185,129,0.08)" stroke="rgba(16,185,129,0.2)"/>
+            <text x="380" y="358" fill="#10b981" font-size="28" text-anchor="middle" font-family="sans-serif">🚢</text>
+            <text x="380" y="378" fill="#34d399" font-size="10" text-anchor="middle" font-family="sans-serif" font-weight="600">EXPORT READY</text>
+
+            <!-- Bottom label -->
+            <text x="260" y="408" fill="#475569" font-size="11" text-anchor="middle" font-family="sans-serif" letter-spacing="2">MADE IN INDIA — SHIPPED WORLDWIDE</text>
+
+            <!-- Top label bar -->
+            <rect x="20" y="20" width="480" height="44" rx="16" fill="#0d1624"/>
+            <rect x="20" y="48" width="480" height="8" fill="#0f172a"/>
+            <circle cx="44" cy="42" r="6" fill="#ef4444" opacity="0.7"/>
+            <circle cx="62" cy="42" r="6" fill="#f59e0b" opacity="0.7"/>
+            <circle cx="80" cy="42" r="6" fill="#10b981" opacity="0.7"/>
+            <text x="260" y="47" fill="#475569" font-size="11" text-anchor="middle" font-family="monospace" letter-spacing="1">groovy-export-system.in</text>
+
+            <!-- Growth line chart -->
+            <polyline points="60,280 120,265 190,255 255,240 310,225 380,210 445,185" stroke="#10b981" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="60,280 120,265 190,255 255,240 310,225 380,210 445,185 445,300 60,300" fill="rgba(16,185,129,0.06)"/>
+            <circle cx="445" cy="185" r="4" fill="#10b981"/>
+            <text x="455" y="183" fill="#10b981" font-size="10" font-family="sans-serif" font-weight="700">₹10Cr+</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     MARQUEE TRUST BAR
+────────────────────────────────────────────── -->
+<div style="border-top: 1px solid var(--navy-border); border-bottom: 1px solid var(--navy-border); padding: 14px 0; overflow: hidden; background: rgba(16,185,129,0.03);">
+  <div class="marquee-inner" style="color: var(--text-secondary); font-size: 13px; font-weight: 500; letter-spacing: 0.04em;">
+    <span>✦ IEC Registration</span>
+    <span>✦ DGFT Compliance</span>
+    <span>✦ 50 Vetted Buyer Leads</span>
+    <span>✦ RoDTEP Incentives</span>
+    <span>✦ ECGC Risk Cover</span>
+    <span>✦ First Shipment in 90 Days</span>
+    <span>✦ HS Code Classification</span>
+    <span>✦ COO Documentation</span>
+    <span>✦ Logistics Planning</span>
+    <span>✦ 200+ Clients Scaled</span>
+    <!-- Duplicated for seamless loop -->
+    <span>✦ IEC Registration</span>
+    <span>✦ DGFT Compliance</span>
+    <span>✦ 50 Vetted Buyer Leads</span>
+    <span>✦ RoDTEP Incentives</span>
+    <span>✦ ECGC Risk Cover</span>
+    <span>✦ First Shipment in 90 Days</span>
+    <span>✦ HS Code Classification</span>
+    <span>✦ COO Documentation</span>
+    <span>✦ Logistics Planning</span>
+    <span>✦ 200+ Clients Scaled</span>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────
+     PROBLEM SECTION
+────────────────────────────────────────────── -->
+<section id="problem" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="max-w-3xl mx-auto text-center mb-16 reveal">
+      <div class="section-line mx-auto" style="margin-bottom: 16px;"></div>
+      <span class="badge mb-4 inline-block">The Reality Most Exporters Face</span>
+      <h2 class="syne text-3xl md:text-4xl font-700 mt-4 mb-5">
+        Your Products Deserve Global Markets.<br/>
+        <span style="color: var(--text-secondary); font-weight: 400;">So Why Are They Stuck?</span>
+      </h2>
+      <p style="color: var(--text-secondary); font-size: 15px; line-height: 1.8;">
+        Without the right system, Indian exporters lose crores to preventable mistakes every year—while competitors quietly ship overseas.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+      <!-- Pain 1 -->
+      <div class="pain-item reveal">
+        <div style="width:36px; height:36px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px;">❌</div>
+        <div>
+          <div class="font-600 mb-1" style="font-size:15px;">Vague Market Research That Goes Nowhere</div>
+          <div style="color: var(--text-secondary); font-size:13px; line-height:1.6;">Generic reports full of theory — zero actionable buyer contacts or country-specific data.</div>
+        </div>
+      </div>
+
+      <!-- Pain 2 -->
+      <div class="pain-item reveal" style="transition-delay: 0.05s;">
+        <div style="width:36px; height:36px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px;">❌</div>
+        <div>
+          <div class="font-600 mb-1" style="font-size:15px;">Rejected Shipments Due to Missing DGFT Docs</div>
+          <div style="color: var(--text-secondary); font-size:13px; line-height:1.6;">One wrong HS code or missing COO and your entire shipment is held at customs—costing you time and money.</div>
+        </div>
+      </div>
+
+      <!-- Pain 3 -->
+      <div class="pain-item reveal" style="transition-delay: 0.1s;">
+        <div style="width:36px; height:36px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px;">❌</div>
+        <div>
+          <div class="font-600 mb-1" style="font-size:15px;">Unreliable Buyers Delaying Payments</div>
+          <div style="color: var(--text-secondary); font-size:13px; line-height:1.6;">Unvetted leads drag you into payment disputes and leave you with warehouses full of unsold inventory.</div>
+        </div>
+      </div>
+
+      <!-- Pain 4 -->
+      <div class="pain-item reveal" style="transition-delay: 0.15s;">
+        <div style="width:36px; height:36px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.2); border-radius:6px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:16px;">❌</div>
+        <div>
+          <div class="font-600 mb-1" style="font-size:15px;">Zero Export Incentives Claimed</div>
+          <div style="color: var(--text-secondary); font-size:13px; line-height:1.6;">RoDTEP, duty drawbacks, ECGC — most exporters leave lakhs of government incentives unclaimed every year.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Consequence statement -->
+    <div class="mt-12 text-center reveal">
+      <div class="inline-block px-8 py-5 rounded-lg" style="background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15); max-width: 600px;">
+        <p style="color: #fca5a5; font-size: 15px; line-height: 1.7; font-style: italic;">
+          "Without expert guidance, your products rot in warehouses while competitors ship crores overseas."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     SOLUTION SECTION
+────────────────────────────────────────────── -->
+<section id="solution" class="py-24" style="border-top: 1px solid var(--navy-border);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <!-- Left: mechanism -->
+      <div class="reveal-left">
+        <div class="section-line"></div>
+        <span class="badge mb-4 inline-block">The Groovy Method</span>
+        <h2 class="syne text-3xl md:text-4xl font-700 mt-4 mb-6">
+          Our Proven Export<br/>Launch System<span class="text-emerald">.</span>
+        </h2>
+        <p style="color: var(--text-secondary); font-size:15px; line-height:1.8; margin-bottom:28px;">
+          Groovy's Export Launch System handles compliance, buyer matching, and full execution using our 10-year playbook — unlike generic advisors who stop at paperwork.
+        </p>
+
+        <div style="padding: 20px; background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); border-radius: 8px; margin-bottom: 28px;">
+          <div class="flex items-center gap-3 mb-2">
+            <span style="color: var(--emerald); font-size: 18px;">🎯</span>
+            <span class="syne font-700 text-white">Full Refund Guarantee</span>
+          </div>
+          <p style="color: var(--text-secondary); font-size: 13px; line-height: 1.7;">100% refund if you don't achieve your first shipment within 90 days. We put our money where our playbook is.</p>
+        </div>
+
+        <a href="#offer" class="btn-primary">Choose Your Package →</a>
+      </div>
+
+      <!-- Right: Steps -->
+      <div class="reveal-right">
+        <div class="flex flex-col gap-6">
+          <!-- Step 1 -->
+          <div class="flex items-start gap-5">
+            <div style="width:48px; height:48px; background: linear-gradient(135deg, var(--emerald-dark), var(--emerald)); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">📋</div>
+            <div>
+              <div class="num-tag mb-1">STEP 01</div>
+              <div class="syne font-700 text-white mb-1">Compliance & Documentation</div>
+              <p style="color: var(--text-secondary); font-size:13px; line-height:1.7;">IEC registration, HS code classification, COO, DGFT filings, RoDTEP applications — handled end-to-end.</p>
+            </div>
+          </div>
+
+          <div style="height: 1px; background: var(--navy-border); margin-left: 64px;"></div>
+
+          <!-- Step 2 -->
+          <div class="flex items-start gap-5">
+            <div style="width:48px; height:48px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🌍</div>
+            <div>
+              <div class="num-tag mb-1">STEP 02</div>
+              <div class="syne font-700 text-white mb-1">Buyer Matching & Outreach</div>
+              <p style="color: var(--text-secondary); font-size:13px; line-height:1.7;">50+ vetted buyers from 3 target markets, personalised outreach, payment-secured deal structuring.</p>
+            </div>
+          </div>
+
+          <div style="height: 1px; background: var(--navy-border); margin-left: 64px;"></div>
+
+          <!-- Step 3 -->
+          <div class="flex items-start gap-5">
+            <div style="width:48px; height:48px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🚢</div>
+            <div>
+              <div class="num-tag mb-1">STEP 03</div>
+              <div class="syne font-700 text-white mb-1">Logistics & First Shipment</div>
+              <p style="color: var(--text-secondary); font-size:13px; line-height:1.7;">End-to-end logistics planning, freight selection, ECGC risk cover, and your first shipment executed.</p>
+            </div>
+          </div>
+
+          <div style="height: 1px; background: var(--navy-border); margin-left: 64px;"></div>
+
+          <!-- Step 4 -->
+          <div class="flex items-start gap-5">
+            <div style="width:48px; height:48px; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.25); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">📈</div>
+            <div>
+              <div class="num-tag mb-1">STEP 04</div>
+              <div class="syne font-700 text-white mb-1">Scale & Optimise</div>
+              <p style="color: var(--text-secondary); font-size:13px; line-height:1.7;">Weekly reviews, repeat buyer outreach, ECGC claims, and marketing to build a ₹10Cr+ export engine.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     OFFER / PRICING SECTION
+────────────────────────────────────────────── -->
+<section id="offer" class="py-24" style="border-top: 1px solid var(--navy-border);">
+  <div class="max-w-6xl mx-auto px-6">
+    <!-- Header -->
+    <div class="text-center mb-6 reveal">
+      <div class="section-line mx-auto"></div>
+      <span class="badge mb-4 inline-block">Choose Your Path to ₹10Cr+ Exports</span>
+      <h2 class="syne text-3xl md:text-4xl font-700 mt-4 mb-4">
+        Three Packages. One Mission<span class="text-emerald">.</span>
+      </h2>
+      <p style="color: var(--text-secondary); font-size:15px; max-width:540px; margin: 0 auto 8px; line-height:1.8;">
+        All packages include our 90-day guarantee — full refund if you don't complete your first shipment.
+      </p>
+    </div>
+
+    <!-- Guarantee Banner -->
+    <div class="text-center mb-12 reveal">
+      <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full" style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2);">
+        <span style="font-size:18px;">🛡️</span>
+        <span style="font-size:13px; color: var(--emerald-light); font-weight:600;">100% Refund Guarantee — No first shipment in 90 days? Full refund. No questions.</span>
+      </div>
+    </div>
+
+    <!-- Pricing Cards Grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+
+      <!-- Starter Pack TX-01 -->
+      <div class="pricing-card p-8 reveal">
+        <div class="num-tag mb-3">TX-01</div>
+        <h3 class="syne text-2xl font-700 text-white mb-1">Starter Pack</h3>
+        <p style="color: var(--text-secondary); font-size:13px; margin-bottom:20px;">For new exporters ready to get compliant and launch</p>
+
+        <div class="mb-6">
+          <div class="syne text-3xl font-800 text-white">₹55,000</div>
+          <div style="color: var(--text-secondary); font-size:12px; margin-top:2px;">– ₹70,000 / year · All-inclusive</div>
+        </div>
+
+        <ul class="check-list mb-8" style="list-style:none; padding:0;">
+          <li>Export readiness audit</li>
+          <li>IEC, HS codes, COO setup</li>
+          <li>Basic compliance setup</li>
+          <li>Incentive applications (RoDTEP)</li>
+          <li>DGFT checklist (Free — ₹10k value)</li>
+        </ul>
+
+        <a href="#contact" class="btn-outline w-full text-center block" style="text-align:center;">Get Started →</a>
+      </div>
+
+      <!-- Growth Pack TX-02 (Featured) -->
+      <div class="pricing-card featured p-8 reveal" style="transition-delay: 0.1s;">
+        <div style="position:absolute; top:-1px; left:50%; transform:translateX(-50%); background: var(--emerald); color: black; font-family: 'Syne', sans-serif; font-size:10px; font-weight:800; letter-spacing:0.1em; padding:4px 16px; border-radius:0 0 6px 6px; text-transform:uppercase;">Most Popular</div>
+
+        <div class="num-tag mb-3">TX-02</div>
+        <h3 class="syne text-2xl font-700 text-white mb-1">Growth Pack</h3>
+        <p style="color: var(--text-secondary); font-size:13px; margin-bottom:20px;">For businesses scaling their first international sales</p>
+
+        <div class="mb-6">
+          <div class="syne text-3xl font-800 text-emerald">₹1,20,000</div>
+          <div style="color: var(--text-secondary); font-size:12px; margin-top:2px;">– ₹1,50,000 / year · All-inclusive</div>
+        </div>
+
+        <ul class="check-list mb-8" style="list-style:none; padding:0;">
+          <li>Everything in Starter Pack</li>
+          <li>Market report — 3 countries</li>
+          <li>50 buyer leads + outreach campaign</li>
+          <li>Logistics plan + first shipment support</li>
+          <li>ECGC risk cover setup</li>
+          <li>Buyer database access (Free — ₹20k value)</li>
+        </ul>
+
+        <a href="#contact" class="btn-primary w-full text-center block" style="text-align:center;">Start Growth Pack →</a>
+      </div>
+
+      <!-- Global Partner TX-03 -->
+      <div class="pricing-card p-8 reveal" style="transition-delay: 0.2s;">
+        <div class="num-tag mb-3">TX-03</div>
+        <h3 class="syne text-2xl font-700 text-white mb-1">Global Partner</h3>
+        <p style="color: var(--text-secondary); font-size:13px; margin-bottom:20px;">For high-volume growth and full execution partnership</p>
+
+        <div class="mb-6">
+          <div class="syne text-3xl font-800 text-white">₹4,50,000</div>
+          <div style="color: var(--text-secondary); font-size:12px; margin-top:2px;">– ₹6,00,000 / year · Full retainer</div>
+        </div>
+
+        <ul class="check-list mb-8" style="list-style:none; padding:0;">
+          <li>Everything in Growth Pack</li>
+          <li>Ongoing monthly retainer</li>
+          <li>Weekly strategy reviews</li>
+          <li>ECGC claims management</li>
+          <li>Full execution — 10+ shipments</li>
+          <li>Custom marketing + optimisation</li>
+        </ul>
+
+        <a href="#contact" class="btn-outline w-full text-center block" style="text-align:center; border-color: rgba(16,185,129,0.3);">Become a Partner →</a>
+      </div>
+    </div>
+
+    <!-- Bonuses -->
+    <div class="mt-12 reveal">
+      <div class="card p-8 grad-border" style="max-width:800px; margin: 0 auto;">
+        <div class="text-center mb-6">
+          <span class="badge" style="background: rgba(245,158,11,0.1); color: #f59e0b; border-color: rgba(245,158,11,0.25);">🎁 Free Bonuses Included</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="flex items-start gap-4">
+            <div style="width:44px; height:44px; background: rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">📄</div>
+            <div>
+              <div class="syne font-700 text-white mb-1">Free DGFT Checklist</div>
+              <div style="color: var(--text-secondary); font-size:13px;">Complete step-by-step compliance checklist. Valued at ₹10,000 — yours free.</div>
+              <div style="color: var(--gold); font-size:12px; font-weight:600; margin-top:4px;">VALUE: ₹10,000</div>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div style="width:44px; height:44px; background: rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:20px;">🗂️</div>
+            <div>
+              <div class="syne font-700 text-white mb-1">Buyer Database Access</div>
+              <div style="color: var(--text-secondary); font-size:13px;">Access to our curated global buyer database across sectors and countries.</div>
+              <div style="color: var(--gold); font-size:12px; font-weight:600; margin-top:4px;">VALUE: ₹20,000</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     PROOF / TESTIMONIALS
+────────────────────────────────────────────── -->
+<section id="proof" class="py-24" style="border-top: 1px solid var(--navy-border);">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="text-center mb-12 reveal">
+      <div class="section-line mx-auto"></div>
+      <span class="badge mb-4 inline-block">Client Results</span>
+      <h2 class="syne text-3xl md:text-4xl font-700 mt-4">
+        Real Exporters.<br/><span class="text-emerald">Real Results.</span>
+      </h2>
+      <p style="color: var(--text-secondary); font-size:14px; margin-top:12px;">200+ Indian businesses scaled with the Groovy Export System</p>
+    </div>
+
+    <!-- Testimonials carousel -->
+    <div class="testimonial-track reveal" id="testimonialTrack">
+
+      <!-- T1 -->
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4">
+          <span style="color:#f59e0b; font-size:14px;">★★★★★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size:15px; line-height:1.75; margin-bottom:20px; font-style:italic;">
+          "ZJELL's Growth Pack got us 25 leads and a ₹2Cr first order. The DGFT documentation was handled seamlessly — we shipped within 60 days."
+        </blockquote>
+        <div class="flex items-center gap-3">
+          <div style="width:40px; height:40px; border-radius:50%; background: linear-gradient(135deg, var(--emerald-dark), var(--emerald)); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:white;">R</div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Rajesh Sharma</div>
+            <div style="color: var(--text-secondary); font-size:12px;">Manufacturer, Delhi · TX-02 Growth Pack</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T2 -->
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4">
+          <span style="color:#f59e0b; font-size:14px;">★★★★★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size:15px; line-height:1.75; margin-bottom:20px; font-style:italic;">
+          "We had zero export experience. Groovy handled everything — IEC, COO, first buyer, first shipment. Honestly couldn't have done it without them."
+        </blockquote>
+        <div class="flex items-center gap-3">
+          <div style="width:40px; height:40px; border-radius:50%; background: linear-gradient(135deg, #7c3aed, #a855f7); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:white;">P</div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Priya Mehta</div>
+            <div style="color: var(--text-secondary); font-size:12px;">Textile Exporter, Surat · TX-01 Starter Pack</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T3 -->
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4">
+          <span style="color:#f59e0b; font-size:14px;">★★★★★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size:15px; line-height:1.75; margin-bottom:20px; font-style:italic;">
+          "10 shipments in the first year with the Global Partner plan. Weekly reviews kept us on track and we claimed RoDTEP incentives we didn't even know existed."
+        </blockquote>
+        <div class="flex items-center gap-3">
+          <div style="width:40px; height:40px; border-radius:50%; background: linear-gradient(135deg, #0891b2, #06b6d4); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:white;">A</div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Arjun Kapoor</div>
+            <div style="color: var(--text-secondary); font-size:12px;">Engineering Goods, Pune · TX-03 Global Partner</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- T4 -->
+      <div class="testimonial-card">
+        <div class="flex items-center gap-1 mb-4">
+          <span style="color:#f59e0b; font-size:14px;">★★★★★</span>
+        </div>
+        <blockquote style="color: var(--text-primary); font-size:15px; line-height:1.75; margin-bottom:20px; font-style:italic;">
+          "The buyer database alone was worth 5x the price. We closed our first German buyer in week 4. The process was smoother than I expected."
+        </blockquote>
+        <div class="flex items-center gap-3">
+          <div style="width:40px; height:40px; border-radius:50%; background: linear-gradient(135deg, #b45309, #f59e0b); display:flex; align-items:center; justify-content:center; font-family:'Syne',sans-serif; font-weight:700; font-size:15px; color:white;">S</div>
+          <div>
+            <div style="font-weight:600; font-size:14px;">Sunita Patel</div>
+            <div style="color: var(--text-secondary); font-size:12px;">Agri Products, Ahmedabad · TX-02 Growth Pack</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Carousel dots -->
+    <div class="flex justify-center gap-2 mt-6" id="carouselDots">
+      <button class="carousel-dot w-6 h-1.5 rounded-full transition-all" style="background: var(--emerald);" data-index="0"></button>
+      <button class="carousel-dot w-2 h-1.5 rounded-full transition-all" style="background: var(--navy-border);" data-index="1"></button>
+      <button class="carousel-dot w-2 h-1.5 rounded-full transition-all" style="background: var(--navy-border);" data-index="2"></button>
+      <button class="carousel-dot w-2 h-1.5 rounded-full transition-all" style="background: var(--navy-border);" data-index="3"></button>
+    </div>
+
+    <!-- Results counter bar -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 reveal">
+      <div class="text-center">
+        <div class="syne text-4xl font-800 text-emerald mb-1"><span class="counter" data-target="200">0</span>+</div>
+        <div style="color: var(--text-secondary); font-size:12px; letter-spacing:0.08em;">CLIENTS SCALED</div>
+      </div>
+      <div class="text-center">
+        <div class="syne text-4xl font-800 text-emerald mb-1">₹10Cr</div>
+        <div style="color: var(--text-secondary); font-size:12px; letter-spacing:0.08em;">AVG FIRST YEAR</div>
+      </div>
+      <div class="text-center">
+        <div class="syne text-4xl font-800 text-emerald mb-1"><span class="counter" data-target="90">0</span></div>
+        <div style="color: var(--text-secondary); font-size:12px; letter-spacing:0.08em;">DAY LAUNCH</div>
+      </div>
+      <div class="text-center">
+        <div class="syne text-4xl font-800 text-emerald mb-1"><span class="counter" data-target="10">0</span></div>
+        <div style="color: var(--text-secondary); font-size:12px; letter-spacing:0.08em;">YEAR PLAYBOOK</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     FAQ
+────────────────────────────────────────────── -->
+<section id="faq" class="py-24" style="border-top: 1px solid var(--navy-border);">
+  <div class="max-w-3xl mx-auto px-6">
+    <div class="text-center mb-12 reveal">
+      <div class="section-line mx-auto"></div>
+      <span class="badge mb-4 inline-block">Common Questions</span>
+      <h2 class="syne text-3xl md:text-4xl font-700 mt-4">
+        Your Questions, Answered<span class="text-emerald">.</span>
+      </h2>
+    </div>
+
+    <div id="faqContainer" class="reveal">
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Does this work for any product?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-content">
+          Yes — Groovy's Export Launch System is product-agnostic. During the free audit, we verify your product's export viability, identify target markets, and confirm the right HS codes and compliance requirements. If it can be shipped, we can build the system around it.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          What if I have zero export experience?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-content">
+          That's exactly who we built this for. Our team executes everything on your behalf — from IEC registration to your first shipped order. You don't need prior knowledge. The Starter Pack is designed to get first-time exporters compliant and ready in weeks, not months.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          What does the refund guarantee cover?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-content">
+          If you don't complete your first shipment within 90 days of starting your package, you receive a 100% full refund — no questions asked. This applies to all three packages. We're confident in our system, and we back it with our money.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          How are buyers vetted?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-content">
+          Every buyer in our database is verified for business legitimacy, payment history, and product relevance to your category. We cross-reference against trade databases and conduct manual outreach before including them in your lead set. You get quality over quantity.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Can I upgrade from Starter to Growth Pack later?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-content">
+          Absolutely. Many clients start with the Starter Pack to get their compliance foundation right, then upgrade to Growth or Global Partner once they're ready to scale. We prorate the upgrade cost, so you only pay the difference.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-btn" onclick="toggleFaq(this)">
+          Is there a free consultation before purchasing?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-content">
+          Yes — we offer a free export readiness audit for all new enquiries. During this session, we assess your product, current compliance status, and the right package for your goals. Book using the CTA buttons on this page. Limited spots available for Q2 2026.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     CLOSING CTA
+────────────────────────────────────────────── -->
+<section id="contact" class="py-24" style="border-top: 1px solid var(--navy-border);">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <div class="reveal">
+      <!-- Orb -->
+      <div style="width:200px; height:200px; background: radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 70%); border-radius:50%; margin: 0 auto 40px; filter:blur(30px); position:absolute; left:50%; transform:translateX(-50%);"></div>
+
+      <span class="badge mb-6 inline-block" style="background: rgba(245,158,11,0.1); color: #f59e0b; border-color: rgba(245,158,11,0.25);">⚡ Limited Spots — Q2 2026</span>
+      <h2 class="syne text-4xl md:text-5xl font-800 mb-6 leading-tight">
+        Secure Your<br/>Global Edge Today<span class="text-emerald">.</span>
+      </h2>
+      <p style="color: var(--text-secondary); font-size:16px; line-height:1.8; max-width:540px; margin: 0 auto 36px;">
+        Claim your free export readiness audit and launch your first shipment in 90 days. Spots for Q2 2026 are limited — act now.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#offer" class="btn-primary text-lg" style="padding: 18px 44px; font-size:16px;">
+          Book Free Audit Now →
+        </a>
+      </div>
+
+      <!-- Trust signals -->
+      <div class="flex flex-wrap justify-center gap-6 mt-12" style="color: var(--text-secondary); font-size:13px;">
+        <div class="flex items-center gap-2">
+          <span style="color: var(--emerald);">✓</span> No commitment required
+        </div>
+        <div class="flex items-center gap-2">
+          <span style="color: var(--emerald);">✓</span> 90-day money-back guarantee
+        </div>
+        <div class="flex items-center gap-2">
+          <span style="color: var(--emerald);">✓</span> 200+ businesses scaled
+        </div>
+        <div class="flex items-center gap-2">
+          <span style="color: var(--emerald);">✓</span> 10-year export playbook
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────────────────────────────────────────
+     FOOTER
+────────────────────────────────────────────── -->
+<footer style="border-top: 1px solid var(--navy-border); padding: 40px 0; margin-top: 0;">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-8 mb-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-sm flex items-center justify-center" style="background: linear-gradient(135deg, var(--emerald-dark), var(--emerald));">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 14L8 2L14 14H2Z" fill="white" opacity="0.9"/></svg>
+          </div>
+          <span class="syne font-800 text-lg text-white">Groovy Export Consulting</span>
+        </div>
+        <p style="color: var(--text-secondary); font-size:14px; line-height:1.7; max-width:280px;">
+          India's trusted export launch partner. 10 years. 200+ businesses. ₹10Cr+ exports enabled.
+        </p>
+      </div>
+      <div>
+        <div class="syne font-700 text-white text-sm mb-4" style="letter-spacing:0.08em;">PACKAGES</div>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li><a href="#offer" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">Starter Pack (TX-01)</a></li>
+          <li><a href="#offer" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">Growth Pack (TX-02)</a></li>
+          <li><a href="#offer" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">Global Partner (TX-03)</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="syne font-700 text-white text-sm mb-4" style="letter-spacing:0.08em;">QUICK LINKS</div>
+        <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:10px;">
+          <li><a href="#problem" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">The Problem</a></li>
+          <li><a href="#solution" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">Our Solution</a></li>
+          <li><a href="#proof" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">Client Results</a></li>
+          <li><a href="#faq" style="color: var(--text-secondary); font-size:13px; text-decoration:none; transition:color 0.2s;" onmouseover="this.style.color='#10b981'" onmouseout="this.style.color='var(--text-secondary)'">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="border-top: 1px solid var(--navy-border); padding-top:24px; display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px;">
+      <div style="color: var(--text-secondary); font-size:12px;">© 2026 Groovy Export Consulting. All rights reserved.</div>
+      <div style="color: var(--text-secondary); font-size:12px;">Made in India 🇮🇳 · Shipping Globally 🌍</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ──────────────────────────────────────────────
+     STICKY BAR
+────────────────────────────────────────────── -->
+<div id="sticky-bar">
+  <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
+    <div>
+      <div class="syne font-700 text-white text-sm">🚀 Launch Your Export Business in 90 Days</div>
+      <div style="color: var(--text-secondary); font-size:12px;">Limited Q2 2026 spots · 100% refund guarantee</div>
+    </div>
+    <a href="#offer" class="btn-primary" style="padding: 10px 24px; font-size:14px; white-space:nowrap;">Book Free Audit →</a>
+  </div>
+</div>
+
+<!-- ──────────────────────────────────────────────
+     SCRIPTS
+────────────────────────────────────────────── -->
+<script>
+  // Register GSAP ScrollTrigger
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('navbar');
+    if (window.scrollY > 60) {
+      nav.style.background = 'rgba(10,15,30,0.95)';
+      nav.style.backdropFilter = 'blur(16px)';
+      nav.style.borderBottom = '1px solid rgba(30,45,71,0.8)';
+      nav.style.padding = '12px 0';
+    } else {
+      nav.style.background = 'transparent';
+      nav.style.backdropFilter = 'none';
+      nav.style.borderBottom = 'none';
+      nav.style.padding = '20px 0';
+    }
+  });
+
+  // ── Sticky bar
+  const stickyBar = document.getElementById('sticky-bar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > window.innerHeight * 0.6) {
+      stickyBar.classList.add('visible');
+    } else {
+      stickyBar.classList.remove('visible');
+    }
+  });
+
+  // ── GSAP Hero entrance
+  gsap.from('#hero-text', { opacity: 0, x: -50, duration: 1, ease: 'power3.out', delay: 0.3 });
+  gsap.from('#hero-image-wrap', { opacity: 0, x: 60, duration: 1.1, ease: 'power3.out', delay: 0.5 });
+
+  // ── Parallax hero image
+  gsap.to('#hero-image-wrap', {
+    yPercent: 8,
+    ease: 'none',
+    scrollTrigger: {
+      trigger: '#hero',
+      start: 'top top',
+      end: 'bottom top',
+      scrub: true
+    }
+  });
+
+  // ── Scroll reveals
+  gsap.utils.toArray('.reveal').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 35 },
+      {
+        opacity: 1, y: 0, duration: 0.75,
+        ease: 'power2.out',
+        delay: (i % 4) * 0.06,
+        scrollTrigger: { trigger: el, start: 'top 86%', once: true }
+      }
+    );
+  });
+
+  gsap.utils.toArray('.reveal-left').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -40 },
+      { opacity: 1, x: 0, duration: 0.85, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
+    );
+  });
+
+  gsap.utils.toArray('.reveal-right').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, x: 40 },
+      { opacity: 1, x: 0, duration: 0.85, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
+    );
+  });
+
+  // ── Counter animation
+  function animateCounters() {
+    document.querySelectorAll('.counter').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const duration = 1500;
+      const start = performance.now();
+      function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target);
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+    });
+  }
+
+  // Trigger counters when proof section is visible
+  ScrollTrigger.create({
+    trigger: '#proof',
+    start: 'top 80%',
+    once: true,
+    onEnter: animateCounters
+  });
+
+  // ── FAQ Accordion
+  function toggleFaq(btn) {
+    const content = btn.nextElementSibling;
+    const isOpen = content.classList.contains('open');
+
+    // Close all
+    document.querySelectorAll('.faq-content').forEach(c => c.classList.remove('open'));
+    document.querySelectorAll('.faq-btn').forEach(b => b.classList.remove('active'));
+
+    if (!isOpen) {
+      content.classList.add('open');
+      btn.classList.add('active');
+    }
+  }
+
+  // ── Testimonial carousel dots
+  const track = document.getElementById('testimonialTrack');
+  const dots = document.querySelectorAll('.carousel-dot');
+
+  track.addEventListener('scroll', () => {
+    const index = Math.round(track.scrollLeft / (track.scrollWidth / 4));
+    dots.forEach((d, i) => {
+      if (i === index) {
+        d.style.background = 'var(--emerald)';
+        d.style.width = '24px';
+      } else {
+        d.style.background = 'var(--navy-border)';
+        d.style.width = '8px';
+      }
+    });
+  });
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const index = parseInt(dot.dataset.index);
+      const cardWidth = track.querySelector('.testimonial-card').offsetWidth + 24;
+      track.scrollTo({ left: cardWidth * index, behavior: 'smooth' });
+    });
+  });
+
+  // ── Pain items stagger
+  gsap.utils.toArray('.pain-item').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, x: -20 },
+      {
+        opacity: 1, x: 0,
+        duration: 0.6,
+        delay: i * 0.1,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', once: true }
+      }
+    );
+  });
+
+  // ── Pricing card stagger
+  gsap.utils.toArray('.pricing-card').forEach((el, i) => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0,
+        duration: 0.7,
+        delay: i * 0.12,
+        ease: 'power2.out',
+        scrollTrigger: { trigger: '#offer', start: 'top 80%', once: true }
+      }
+    );
+  });
+</script>
+</body>
+</html>
